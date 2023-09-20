@@ -13,9 +13,12 @@ type Authorization interface {
 }
 
 type Team interface {
+	CreateFromDesc(desc entity.Desc) error
+	CreateTeam(team entity.Team) (string, error)
 }
 
 type Duty interface {
+	CreateDuty(duty entity.Duty) (string, error)
 }
 
 type Repository struct {
@@ -27,5 +30,7 @@ type Repository struct {
 func NewRepository(db *gorm.DB) *Repository {
 	return &Repository{
 		Authorization: NewAuthSqlite(db),
+		Team:          NewTeamSqlite(db),
+		Duty:          NewDutySqlite(db),
 	}
 }

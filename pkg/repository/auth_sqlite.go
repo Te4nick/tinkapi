@@ -22,7 +22,12 @@ func (r *AuthSqlite) CreateUser(user entity.User) (string, error) {
 	return user.Name, result.Error
 }
 func (r *AuthSqlite) ReadUser(name string) (entity.User, error) {
-	return entity.User{}, nil
+	var foundUser entity.User
+	result := r.db.Model(&entity.User{}).First(&foundUser, "name = ?", name)
+	if result.Error != nil {
+		return entity.User{}, result.Error
+	}
+	return foundUser, nil
 }
 func (r *AuthSqlite) UpdateUser(user entity.User) (string, error) {
 	return "", nil

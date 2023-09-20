@@ -15,9 +15,9 @@ type Team struct {
 
 type Duty struct {
 	gorm.Model
-	UserID int
+	UserID string
 	User   User `gorm:"references:Name"`
-	TeamID int
+	TeamID string
 	Team   Team `gorm:"references:Name"`
 	Date   time.Time
 	Role   string

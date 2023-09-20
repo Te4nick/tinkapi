@@ -23,6 +23,11 @@ func (h *Handler) InitRouter() *gin.Engine {
 		auth.POST("/remove-user", h.removeUser)
 	}
 
+	team := router.Group("/team")
+	{
+		team.POST("/create-from-desc", h.createFromDesc)
+	}
+
 	return router
 }
 

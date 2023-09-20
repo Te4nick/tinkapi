@@ -13,10 +13,12 @@ type Authorization interface {
 }
 
 type Team interface {
-	CreateFromDesc(desc *entity.Desc) error
+	CreateTeam(team entity.Team) (string, error)
+	CreateFromDesc(desc entity.Desc) error
 }
 
 type Duty interface {
+	CreateDuty(duty entity.Duty) (string, error)
 }
 
 type Service struct {
@@ -28,5 +30,7 @@ type Service struct {
 func NewService(repos *repository.Repository) *Service {
 	return &Service{
 		Authorization: NewAuthService(repos.Authorization),
+		Team:          NewTeamService(repos.Team),
+		Duty:          NewDutyService(repos.Duty),
 	}
 }
