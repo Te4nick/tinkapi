@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"tinkapi/v2/service"
 )
 
@@ -23,4 +24,13 @@ func (h *Handler) InitRouter() *gin.Engine {
 	}
 
 	return router
+}
+
+func (h *Handler) respondWithError(code int, c *gin.Context, msg string) {
+	logrus.Error(msg)
+	c.AbortWithStatusJSON(code, msg)
+}
+
+func (h *Handler) respondWithYAML(code int, c *gin.Context, payload interface{}) {
+	c.YAML(code, payload)
 }
